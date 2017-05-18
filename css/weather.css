@@ -1,0 +1,71 @@
+ul {
+	text-align:center;
+}
+
+li {
+	list-style: none;
+	float: left;
+	width: 30%;
+	margin: 1em;
+	padding:1em;
+	background: #daedff;
+}
+
+p {
+	font-size: 2em;
+}
+
+h1 {
+	font-size: 4em;
+}
+
+table {
+	font-size: 2em;
+}
+
+* {
+	margin-top: 1%;
+}
+
+img {
+	width:3em;
+}
+
+.liveImg {
+	width: 6em;
+	display: block;
+	text-align:center;
+}
+
+.liveSpan {
+	background: #daedff;
+}
+
+.liveSpan1 {
+	text-align: center;
+	background: #daedff;
+	margin-left: 0;
+	height:10em;
+}
+.liveSpan3 {
+	background: #daedff;
+	margin-left: 0; 
+	height:10em;
+}
+.liveTitle {
+	text-align: center;
+	font-size: 2em;
+	color: #1570a6;
+}
+.brf {
+	color: #1570a6;
+	padding-left: 2em;
+	padding-top: 0.5em;
+	display: block;
+	font-size: 2em;
+}
+.txt {
+	display: block;
+	font-size: 1.5em;
+	line-height: 150%;
+	padding:0.5em;
