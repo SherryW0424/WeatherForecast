@@ -44,8 +44,9 @@
 	});
 	chart.on('click', function (params) {
 	    var city = params.name;
-	    //loadChart(city); 
-	    alert(city);
+	    //console.log(params);
+	    //alert(city);
+	    window.location.href='index.html?cityName='+city;
 	});
 </script>
 </body>
