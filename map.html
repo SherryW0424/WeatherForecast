@@ -2,7 +2,10 @@
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/echarts.min.js"></script>
-<script type="text/javascript" src="js/china.js"></script>
+<script type="text/javascript" src="js/map/china.js"></script>
+<script type="text/javascript" src="js/map/hebei.js"></script>
+<script type="text/javascript" src="js/map/anhui.js"></script>
+<script type="text/javascript" src="js/map/beijing.js"></script>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -19,16 +22,24 @@
 <body>
 	<div class="container-fluid">
         <div class="row-fluid">
-            <div class="span12" id="map" style="width:100%;height:100%;">
+            <div class="span6" id="ChinaMap" style="width:100%;height:100%;">
+            </div>
+            <div class="span6" id="ProviceMap" style="width:100%;height:100%";>
             </div>
         </div>
     </div>
 <script>
-	var chart = echarts.init(document.getElementById('map'));
-	chart.setOption({
+	var ChinaChart = echarts.init(document.getElementById('ChinaMap'));
+	ChinaChart.setOption({
+		title:{
+			text:'请选择查看天气的地区',
+			subtext:'可进入省市详细选择',
+			left:'20%'
+		},
 	    series: [{
 	        type: 'map',
 	        map: 'china',
+	        selectedMode :'single',
 	        label:{
 	        	normal:{
 	        		show:true
@@ -39,15 +50,75 @@
 	        			fontSize:'15'
 	        		}
 	        	}
-	        }
+	        },
+	         data:[
+                {name: '北京', selected:true},
+                {name: '天津', selected:false},
+                {name: '上海', selected:false},
+                {name: '重庆', selected:false},
+                {name: '河北', selected:false},
+                {name: '河南', selected:false},
+                {name: '云南', selected:false},
+                {name: '辽宁', selected:false},
+                {name: '黑龙江', selected:false},
+                {name: '湖南', selected:false},
+                {name: '安徽', selected:false},
+                {name: '山东', selected:false},
+                {name: '新疆', selected:false},
+                {name: '江苏', selected:false},
+                {name: '浙江', selected:false},
+                {name: '江西', selected:false},
+                {name: '湖北', selected:false},
+                {name: '广西', selected:false},
+                {name: '甘肃', selected:false},
+                {name: '山西', selected:false},
+                {name: '内蒙古', selected:false},
+                {name: '陕西', selected:false},
+                {name: '吉林', selected:false},
+                {name: '福建', selected:false},
+                {name: '贵州', selected:false},
+                {name: '广东', selected:false},
+                {name: '青海', selected:false},
+                {name: '西藏', selected:false},
+                {name: '四川', selected:false},
+                {name: '宁夏', selected:false},
+                {name: '海南', selected:false},
+                {name: '台湾', selected:false},
+                {name: '香港', selected:false},
+                {name: '澳门', selected:false}
+            ]
 	    }]
 	});
-	chart.on('click', function (params) {
-	    var city = params.name;
-	    //console.log(params);
-	    //alert(city);
-	    window.location.href='index.html?cityName='+city;
+	var ProvinceChart = echarts.init(document.getElementById('ProviceMap'));
+	// ChinaChart.on('legendselectchanged', function (params) {
+ //    	console.log(params);
+	// });
+	ChinaChart.on('mapselectchanged', function (params){
+		var selectProvice = params.batch[0].name;
+		//alert(selectProvice);
+		console.log(selectProvice);
+	    var option = {
+	        series : [
+	        {
+	            tooltip: {
+	                trigger: 'item',
+	                formatter: '{b}'
+	            },
+	            type: 'map',
+	            map: selectProvice
+	            }
+	       ],
+	      animation: false,
+	      
+	    }
+	    ProvinceChart.setOption(option, true);
 	});
+	// ChinaChart.on('click', function (params) {
+	//     var city = params.name;
+	//     console.log(params);
+	//     //alert(city);
+	//     //window.location.href='index.html?cityName='+city;
+	// });
 </script>
 </body>
 </html>
