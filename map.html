@@ -96,6 +96,7 @@
 	ChinaChart.on('mapselectchanged', function (params){
 		var selectProvice = params.batch[0].name;
 		//alert(selectProvice);
+		console.log(params);
 		console.log(selectProvice);
 	    var option = {
 	        series : [
@@ -105,9 +106,20 @@
 	                formatter: '{b}'
 	            },
 	            type: 'map',
-	            map: selectProvice
-	            }
-	       ],
+	            map: selectProvice,
+	            selectedMode :'single',
+	            label:{
+		        	normal:{
+		        		show:true
+		        	},
+		        	emphasis:{
+		        		textStyle:{
+		        			fontWeight:'bolder',
+		        			fontSize:'15'
+		        		}
+		        	}
+		        }	        
+	       }],
 	      animation: false,
 	      
 	    }
