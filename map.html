@@ -28,41 +28,6 @@
         </div>
     </div>
 <script>
-	var m = new Map();
-    m.set("北京","beijing");
-    m.set("天津","tianjin");
-    m.set("上海","shanghai");
-    m.set("重庆","zhongqing");
-    m.set("河北","hebei");
-    m.set("山西","shanxi");
-    m.set("内蒙古","neimenggu");
-    m.set("辽宁","liaoning");
-    m.set("吉林","jilin");
-    m.set("黑龙江","heilongjian");
-    m.set("江苏","jiangsu");
-    m.set("浙江","zhejiang");
-    m.set("安徽","anhui");
-    m.set("福建","fujian");
-    m.set("江西","jiangxi");
-    m.set("山东","shandong");
-    m.set("河南","henan");
-    m.set("湖北","hubei");
-    m.set("湖南","hunan");
-    m.set("广东","guangdong");
-    m.set("广西","guangxi");
-    m.set("海南","hainan");
-    m.set("四川","sichuan");
-    m.set("贵州","guizhou");
-    m.set("云南","yunnan");
-    m.set("西藏","xizang");
-    m.set("陕西","shanxi");
-    m.set("甘肃","gansu");
-    m.set("青海","qinghai");
-    m.set("宁夏","ningxia");
-    m.set("新疆","xinjiang");
-    m.set("台湾","taiwan");
-    m.set("香港","xianggang");
-    m.set("澳门","aomen");
 
 	var ChinaChart = echarts.init(document.getElementById('ChinaMap'));
 	ChinaChart.setOption({
@@ -126,7 +91,7 @@
 	});
 	ChinaChart.on('mapselectchanged', function (params){
 		var selectProvice = params.batch[0].name;
-		window.location.href='index.html?cityName='+m.get(selectProvice);
+		window.location.href='index.html?cityName=' + selectProvice;
 	    
 	});
 

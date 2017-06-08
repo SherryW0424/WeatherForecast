@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/weather.css"/>
+    <link rel="stylesheet" type="text/css" href="css/button.css"/>
     <script src="js/main.js"></script>
     <script src="js/weather.js"></script>
 </head>
@@ -22,7 +23,8 @@
         <div class="row-fluid">
             <div class="span12" style="margin-top: 0;">
                 <h1 class="text-right" >
-                    <span id="city">天津</span><a>(切换城市)</a>
+                    <span id="city">天津</span>
+                    <button type="button" id="changeCity" class="button super">切换城市</button>
                 </h1>
             </div>
         </div>
@@ -69,14 +71,32 @@
         </div>
         <div class="row-fluid">
             <div class="span12">
+                <span style="padding-left: 10%">&nbsp;</span>
+                <button id="hourf" class="button large blue">分时预报</button>
+                <button id="dayf" class="button large blue">三天预报</button>
+            </div>
+        </div>
+        <div class="row-fluid" id="hourShow1">
+            <div class="span12">
                 <table id="hourslyTable" style="width:92.5%;margin-left:4%;text-align: center;">
                     <tr></tr>
                     <tr></tr>
                 </table>
             </div>
         </div>
-        <div class="row-fluid">
+        <div class="row-fluid" id="hourShow2">
             <div class="span12" id="hourslyChart" style="width:100%;height:400px;">
+            </div>
+        </div>
+        <div class="row-fluid" id="dayShow" style="display: none">
+            <div class="span12">
+                <table id="foreastDay" style="width:92.5%;margin-left:4%;text-align: center; border-collapse:separate; border-spacing:0px 20px;">
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                </table>
             </div>
         </div>
         <div class="row-fluid" style="padding-left:4em;">
@@ -141,10 +161,76 @@
     }
 </script>
 <script type="text/javascript">
+    var m = new Map();
+    m.set("北京","beijing");
+    m.set("天津","tianjin");
+    m.set("上海","shanghai");
+    m.set("重庆","zhongqing");
+    m.set("河北","hebei");
+    m.set("山西","shanxi");
+    m.set("内蒙古","neimenggu");
+    m.set("辽宁","liaoning");
+    m.set("吉林","jilin");
+    m.set("黑龙江","heilongjian");
+    m.set("江苏","jiangsu");
+    m.set("浙江","zhejiang");
+    m.set("安徽","anhui");
+    m.set("福建","fujian");
+    m.set("江西","jiangxi");
+    m.set("山东","shandong");
+    m.set("河南","henan");
+    m.set("湖北","hubei");
+    m.set("湖南","hunan");
+    m.set("广东","guangdong");
+    m.set("广西","guangxi");
+    m.set("海南","hainan");
+    m.set("四川","sichuan");
+    m.set("贵州","guizhou");
+    m.set("云南","yunnan");
+    m.set("西藏","xizang");
+    m.set("陕西","shanxi");
+    m.set("甘肃","gansu");
+    m.set("青海","qinghai");
+    m.set("宁夏","ningxia");
+    m.set("新疆","xinjiang");
+    m.set("台湾","taiwan");
+    m.set("香港","xianggang");
+    m.set("澳门","aomen");
     var a = GetRequest();
-    var cityName = a['cityName'];
+    var cityName = a['cityName'];   //拼音
+
+    if( localStorage.getItem("cityName") );
+    else 
+        localStorage.setItem("cityName", "天津");
+
+    if(typeof(cityName)=="undefined"){ 
+        cityName = localStorage.getItem("cityName");
+
+        if(typeof(localStorage.getItem("cityName"))=="undefined")
+            cityName = "天津";
+    } 
+    else{
+        localStorage.setItem("cityName", cityName);
+        
+    }
+
+    $('#city').text(cityName);
 
     var myChart = echarts.init(document.getElementById('hourslyChart'));
+
+    $('#changeCity').click(function(){
+        window.location.href='map.html';
+    })
+    $('#hourf').click(function(){
+        $('#hourShow1').show();
+        $('#hourShow2').show();
+        $('#dayShow').hide();
+    })
+    $('#dayf').click(function(){
+        $('#hourShow1').hide();
+        $('#hourShow2').hide();
+        $('#dayShow').show();
+    })
 
     // 指定图表的配置项和数据
     var option = {
@@ -250,11 +336,58 @@
     
         })
         $.ajax({
+            url: "https://free-api.heweather.com/v5/forecast",
+            type: "GET",
+            dataType: "json",
+            data: {
+                city: cityName,
+                key: "acaa23e4d1c54213bf5c7ced99127b27"
+            },
+    
+            // When the requet completed, then invokes success function.
+            success: function(data) {
+                forecastData = data.HeWeather5[0].daily_forecast;
+                console.log(forecastData)
+                var mydate = new Array();  //时间
+                var tmp = new Array();
+                var wind = new Array();
+
+                var mydateString = "";
+                var tmpString = "";
+                var windString = "";
+                var iconString = "";
+                var condString = "";
+
+                for(var i=0; i<3; i++){
+                    mydate[i] = forecastData[i].date;
+                    mydate[i] = mydate[i].substr(5,mydate[i].length);
+                    tmp[i] = forecastData[i].tmp.min + '℃~' + forecastData[i].tmp.max +'℃';
+                    wind[i] = forecastData[i].wind.dir + ' ' + forecastData[i].wind.sc + '级';
+                    mydateString += "<td>" + mydate[i] + "</td>";
+                    tmpString += "<td>" + tmp[i] + "</td>";
+                    windString += "<td>" + wind[i] + "</td>";
+                    iconString += "<td><img src=\"images/" + forecastData[i].cond.code_d + ".png\"/></td>";
+                    condString += "<td>" + forecastData[i].cond.txt_d + "</td>";
+                }
+                document.getElementById('foreastDay').rows[0].innerHTML = mydateString;
+                document.getElementById('foreastDay').rows[1].innerHTML = iconString;
+                document.getElementById('foreastDay').rows[2].innerHTML = tmpString;
+                document.getElementById('foreastDay').rows[3].innerHTML = condString;
+                document.getElementById('foreastDay').rows[4].innerHTML = windString;
+                
+
+            },
+            error: function(e){
+                alert("当前网络连接不可用，请联网后查询");
+            }
+    
+        })
+        $.ajax({
             url: "http://api.openweathermap.org/data/2.5/forecast",
             type: "GET",
             dataType: "json",
             data: {
-                q: "tianjin",
+                q: m.get(cityName),
                 APPID: "c39d92daaae3a5a5d1508300132f4127",
                 cnt:"7",
                 units:"metric"
@@ -273,7 +406,7 @@
                     var local = (utc.getHours()+8)%24;
                     hourString += "<td>" + local + "时</td>";
                     var code = data.list[i].weather[0].icon;
-                    weatherString +="<td><img src=\"http://openweathermap.org/img/w/"+code+".png\"/></td>"
+                    weatherString +="<td><img src=\"http://openweathermap.org/img/w/"+code+".png\"/></td>";
                     xAxisData[i] = local+"时";
                     tmpData[i] = Math.round(data.list[i].main.temp);
                     //alert(data.list[i].dt_txt);
