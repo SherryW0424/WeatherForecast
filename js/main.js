@@ -1,8 +1,145 @@
 var startTime;
 var checkTime;
 
+var config = {cnt:0};
 //Initialize function
 var init = function () {
+
+    document.onkeydown=function(event){
+
+        
+
+        switch(event.keyCode){
+            //enter
+            case 13:
+                switch(config.cnt){
+                    case 0: 
+                        $('#hourShow1').show();
+                        $('#hourShow2').show();
+                        $('#dayShow').hide();
+                        break;
+                    case 1: 
+
+                        $('#hourShow1').hide();
+                        $('#hourShow2').hide();
+                        $('#dayShow').show();
+                        
+                        break;
+                    case 2: 
+                        window.location.href='map.html';
+                        break;
+                }
+                break;
+            //left
+            case 37:
+                left();
+                break;
+            //up
+            case 38:
+                //up();
+                break;
+            //right
+            case 39:
+                right();
+                break;
+            //down
+            case 40:
+                //down();
+                break;
+        }
+    }
+    function left(){
+        if(!config.cnt){
+
+        } else {
+            config.cnt--;
+        }
+
+        switch(config.cnt){
+            case 0: 
+                $("#hourf").css({
+                    "background-color":"#0759b5"
+                });
+                $("#dayf").css({
+                    "background-color": "#2981e4"
+                });
+                $("#changeCity").css({
+                    "background-color":"#222"
+                });
+                break;
+            case 1: 
+                $("#dayf").css({
+                    "background-color":"#0759b5"
+                });
+                $("#hourf").css({
+                    "background-color":"#2981e4"
+                });
+                $("#changeCity").css({
+                    "background-color":"#222"
+                });
+                break;
+            case 2: 
+                $("#changeCity").css({
+                    "background-color":"#960505"
+                });
+                $("#dayf").css({
+                    "background-color": "#2981e4"
+                });
+                $("#hourf").css({
+                    "background-color":"#2981e4"
+                });
+                
+                break;
+        }
+
+    }
+
+    function right(){
+        if(config.cnt == 2){
+
+        }else{
+            config.cnt++;
+        }
+
+        switch(config.cnt){
+            case 0: 
+                $("#hourf").css({
+                    "background-color":"#0759b5"
+                });
+                $("#dayf").css({
+                    "background-color": "#2981e4"
+                });
+                $("#changeCity").css({
+                    "background-color":"#222"
+                });
+                break;
+            case 1: 
+                $("#dayf").css({
+                    "background-color":"#0759b5"
+                });
+                $("#hourf").css({
+                    "background-color":"#2981e4"
+                });
+                $("#changeCity").css({
+                    "background-color":"#222"
+                });
+                break;
+            case 2: 
+                $("#changeCity").css({
+                    "background-color":"#960505"
+                });
+                $("#dayf").css({
+                    "background-color": "#2981e4"
+                });
+                $("#hourf").css({
+                    "background-color":"#2981e4"
+                });
+                
+                break;
+        }
+        
+    }
+
     // TODO:: Do your initialization job
     console.log("init() called");
     

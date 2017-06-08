@@ -41,3 +41,4 @@
 	.blue.button:hover							{ background-color: #2575cf; }
 	.yellow.button, .yellow.button:visited		{ background-color: #ffb515; }
 	.yellow.button:hover						{ background-color: #fc9200; }
+	.button .active                                     { background-color: #fc9200; }
