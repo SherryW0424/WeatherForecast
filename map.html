@@ -3,10 +3,6 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/echarts.min.js"></script>
 <script type="text/javascript" src="js/map/china.js"></script>
-<script type="text/javascript" src="js/map/hebei.js"></script>
-<script type="text/javascript" src="js/map/anhui.js"></script>
-<script type="text/javascript" src="js/map/beijing.js"></script>
-<script type="text/javascript" src="js/map/tianjin.js"></script>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -17,18 +13,59 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/weather.css"/>
-    <script src="js/main.js"></script>
+    <script src="js/mapmain.js"></script>
     <script src="js/weather.js"></script>
 </head>
 <body>
 	<div class="container-fluid">
         <div class="row-fluid">
-            <div class="span12" id="ChinaMap" style="width:100%;height:100%;">
+            <div class="span10" id="ChinaMap" style="width:75%;height:100%;">
+            </div>
+            <div class="span1" class="cityList" style="width:10%;">
+            	<ul>
+	            	<li class="cityLi cityActive" id="city01">北京</li>
+	            	<li class="cityLi" id="city02">天津</li>
+	            	<li class="cityLi" id="city03">上海</li>
+	            	<li class="cityLi" id="city04">重庆</li>
+	            	<li class="cityLi" id="city05">河北</li>
+	            	<li class="cityLi" id="city06">山西</li>
+	            	<li class="cityLi" id="city07">内蒙古</li>
+	            	<li class="cityLi" id="city08">辽宁</li>
+	            	<li class="cityLi" id="city09">吉林</li>
+	            	<li class="cityLi" id="city10">黑龙江</li>
+	            	<li class="cityLi" id="city11">江苏</li>
+	            	<li class="cityLi" id="city12">浙江</li>
+	            	<li class="cityLi" id="city13">安徽</li>
+	            	<li class="cityLi" id="city14">福建</li>
+	            	<li class="cityLi" id="city15">江西</li>
+	            	<li class="cityLi" id="city16">山东</li>
+	            	<li class="cityLi" id="city17">河南</li>
+            	</ul>
+            </div>
+            <div class="span1" class="cityList" style="width:10%;">
+            	<ul>
+	            	<li class="cityLi" id="city18">湖北</li>
+	            	<li class="cityLi" id="city19">湖南</li>
+	            	<li class="cityLi" id="city20">广东</li>
+	            	<li class="cityLi" id="city21">广西</li>
+	            	<li class="cityLi" id="city22">海南</li>
+	            	<li class="cityLi" id="city23">四川</li>
+	            	<li class="cityLi" id="city24">贵州</li>
+	            	<li class="cityLi" id="city25">云南</li>
+	            	<li class="cityLi" id="city26">西藏</li>
+	            	<li class="cityLi" id="city27">陕西</li>
+	            	<li class="cityLi" id="city28">甘肃</li>
+	            	<li class="cityLi" id="city29">青海</li>
+	            	<li class="cityLi" id="city30">宁夏</li>
+	            	<li class="cityLi" id="city31">新疆</li>
+	            	<li class="cityLi" id="city32">台湾</li>
+	            	<li class="cityLi" id="city33">香港</li>
+	            	<li class="cityLi" id="city34">澳门</li>
+            	</ul>
             </div>
         </div>
     </div>
 <script>
-
 	var ChinaChart = echarts.init(document.getElementById('ChinaMap'));
 	ChinaChart.setOption({
 		title:{
